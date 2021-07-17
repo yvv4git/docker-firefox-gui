@@ -2,12 +2,17 @@ build:
 	docker build --rm --force-rm -t firefox-yvv .
 
 
-run:
+run_secure:
 	docker run --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix${DISPLAY} \
     --device=/dev/snd/controlC0 \
 	--device=/dev/snd/pcmC0D0p \
     --device=/dev/snd/seq \
 	--device=/dev/snd/timer \
+	--privileged \
+	--name firefox-yvv firefox-yvv
+
+run_unsecure:
+	docker run --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix${DISPLAY} \
 	--privileged \
 	--name firefox-yvv firefox-yvv
 
